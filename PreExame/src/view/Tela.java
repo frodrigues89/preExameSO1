@@ -33,6 +33,7 @@ import java.awt.ScrollPane;
 
 import control.Control;
 import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
 
 public class Tela extends JFrame {
 
@@ -46,7 +47,7 @@ public class Tela extends JFrame {
 	private JRadioButton rdbtnSelecionar;
 	private JRadioButton rdbtnDigitar;
 	private JLabel lblTamanhoDoArquivo;
-	private JLabel lblNewLabel ;
+	private JLabel lblNumDiscos ;
 	private JLabel lblBytes;
 	private JComboBox comboNumeroDiscos ;
 	private String[] vetorCombo  = {"3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
@@ -75,7 +76,7 @@ public class Tela extends JFrame {
 		Control ctr = new Control();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 527, 394);
+		setBounds(100, 100, 1137, 518);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -84,38 +85,37 @@ public class Tela extends JFrame {
 		
 		btnBuscaArquivo= new JButton("Selecionar Arquivo");
 		btnBuscaArquivo.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnBuscaArquivo.setBounds(10, 11, 226, 23);
+		btnBuscaArquivo.setBounds(293, 12, 161, 23);
 		contentPane.add(btnBuscaArquivo);
 		
-		btnMontarDiscos = new JButton("MontarDiscos");
+		btnMontarDiscos = new JButton("Montar Discos");
 		btnMontarDiscos.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnMontarDiscos.setBounds(141, 76, 241, 23);
+		btnMontarDiscos.setBounds(907, 44, 204, 23);
 		contentPane.add(btnMontarDiscos);
 		
 		
 		lblTamanhoDoArquivo = new JLabel("Tamanho do arquivo:");
 		lblTamanhoDoArquivo.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTamanhoDoArquivo.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblTamanhoDoArquivo.setBounds(10, 45, 124, 14);
+		lblTamanhoDoArquivo.setBounds(157, 49, 124, 14);
 		contentPane.add(lblTamanhoDoArquivo);
 		
-		lblNewLabel = new JLabel("Numero de Discos:");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel.setBounds(294, 45, 116, 14);
-		contentPane.add(lblNewLabel);
+		lblNumDiscos = new JLabel("Numero de Discos:");
+		lblNumDiscos.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNumDiscos.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNumDiscos.setBounds(468, 50, 116, 14);
+		contentPane.add(lblNumDiscos);
 		
 		lblBytes = new JLabel("bytes");
-		lblBytes.setBounds(238, 45, 46, 14);
+		lblBytes.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblBytes.setBounds(417, 49, 37, 14);
 		contentPane.add(lblBytes);
-		lblBytes.setVisible(false);
 		
 		
 		tfTamanho = new JTextField();
 		tfTamanho.setHorizontalAlignment(SwingConstants.RIGHT);
 		tfTamanho.setFont(new Font("Tahoma", Font.BOLD, 11));
-		tfTamanho.setEditable(false);
-		tfTamanho.setBounds(141, 42, 95, 20);
+		tfTamanho.setBounds(291, 46, 116, 20);
 		contentPane.add(tfTamanho);
 		tfTamanho.setColumns(10);
 		
@@ -123,12 +123,12 @@ public class Tela extends JFrame {
 		rdbtnSelecionar = new JRadioButton("Selecionar Arquivo");
 		rdbtnSelecionar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		rdbtnSelecionar.setSelected(true);
-		rdbtnSelecionar.setBounds(242, 11, 140, 23);
+		rdbtnSelecionar.setBounds(10, 11, 140, 23);
 		contentPane.add(rdbtnSelecionar);
 		
 		rdbtnDigitar = new JRadioButton("Digitar Tamanho");
 		rdbtnDigitar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		rdbtnDigitar.setBounds(384, 11, 135, 23);
+		rdbtnDigitar.setBounds(152, 11, 135, 23);
 		contentPane.add(rdbtnDigitar);
 		
 		ButtonGroup btnGroup = new ButtonGroup();
@@ -140,21 +140,30 @@ public class Tela extends JFrame {
 		comboNumeroDiscos = new JComboBox();
 		comboNumeroDiscos.setFont(new Font("Tahoma", Font.BOLD, 11));
 		comboNumeroDiscos.setModel(new DefaultComboBoxModel(vetorCombo));
-		comboNumeroDiscos.setBounds(415, 42, 86, 20);
+		comboNumeroDiscos.setBounds(589, 47, 86, 20);
 		contentPane.add(comboNumeroDiscos);
 		
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 110, 491, 2);
+		separator.setBounds(10, 76, 1101, 2);
 		contentPane.add(separator);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 120, 491, 225);
+		scrollPane.setBounds(10, 89, 1101, 380);
 		contentPane.add(scrollPane);
 		
+		JButton btnLimparTela = new JButton("Limpar Tela");
+		btnLimparTela.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnLimparTela.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				limparTela();
+			}
+		});
+		btnLimparTela.setBounds(10, 42, 124, 23);
+		contentPane.add(btnLimparTela);
 		
+		table = new JTable();
 		
-		 
 		
 		/*Sessão de ActionListener*/
 		
@@ -200,6 +209,19 @@ public class Tela extends JFrame {
  		btnMontarDiscos.addActionListener(montar);
 	}
 	
+	
+	private void limparTela(){
+		tfTamanho.setText("");
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		rdbtnSelecionar.setSelected(true);
+		rdbtnDigitar.setSelected(false);
+		tfTamanho.setEnabled(false);
+		comboNumeroDiscos.setSelectedIndex(0);
+		btnBuscaArquivo.setEnabled(true);
+		
+	}
+	
 	/**
 	 * Metodo que gera a tabela.
 	 * @param tabela - String[][] 
@@ -209,11 +231,9 @@ public class Tela extends JFrame {
 		
 		String[] discos = ctr.StringDiscos(Discos());
 		
-		table = new JTable();
 		table.setModel(new DefaultTableModel(tab,discos ));
 		table.setBounds(10, 123, 491, 222);
-		contentPane.add(table);
-		scrollPane.add(table);
+		scrollPane.setViewportView(table);
 	}
 	
 	/**
@@ -234,6 +254,7 @@ public class Tela extends JFrame {
 			long tamanho = chooser.getSelectedFile().length();
 			tfTamanho.setText(tamanho + "");
 			lblBytes.setVisible(true);
+			
 		}
 	}
 	
@@ -244,8 +265,9 @@ public class Tela extends JFrame {
 	 * @param booleano btn
 	 */
 	private void EnableTela(boolean tf, boolean btn){
-		tfTamanho.setEditable(tf);
+		tfTamanho.setEnabled(tf);
 		btnBuscaArquivo.setEnabled(btn);
+		
 	}
 	
 	/**

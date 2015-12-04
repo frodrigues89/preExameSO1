@@ -29,7 +29,7 @@ public class Control {
 			
 			for (int j = 0; j < discos-1; j++){
 				if (n <= bits){
-					tab[i][j] = "b"+n;
+					tab[i][j] = "byte"+n;
 					n++;
 				}else{
 					j = discos-1;
@@ -44,7 +44,7 @@ public class Control {
 			bit += 32;
 		}
 		
-		MostraTab(tab, (int)linhas, discos);
+		//MostraTab(tab, (int)linhas, discos);
 		return tab;
 	}
 	
@@ -96,10 +96,6 @@ public class Control {
 			discos[i] = "Disk" + (i+1);
 		}
 		discos[nDiscos-1] = "parity Disk";
-		
-		for (int i = 0 ; i < nDiscos ; i++)
-			System.out.print(discos[i]);
-			System.out.println("");
 		
 		return discos;			
 	}
