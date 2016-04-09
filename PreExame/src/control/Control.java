@@ -8,7 +8,7 @@ public class Control {
 	public Control(){
 			
 		}
-		
+		//foda-se
 	/**
 	 * Monta a tabela dos discos.
 	 * @param String tamanho
